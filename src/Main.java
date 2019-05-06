@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-public class Test {
+public class Main {
 
 	static Chain chain;
 
@@ -26,12 +26,12 @@ public class Test {
 
 		JTextField len = new JTextField ("12");
 		JTextField start = new JTextField ("the");
-		len.setMaximumSize (new Dimension (200, 200)); start.setMaximumSize (new Dimension (200, 200));
+		len.setMaximumSize (new Dimension (800, 800)); start.setMaximumSize (new Dimension (800, 800));
 
 		len.setToolTipText ("length of generated text");
 		start.setToolTipText ("the first word of generated text");
 
-		genA.setMaximumSize (new Dimension (500, 800));
+		genA.setMaximumSize (new Dimension (800, 800));
 		genA.setRows (10);
 		genA.setLineWrap (true);
 		genA.setWrapStyleWord (true);
