@@ -1,53 +1,103 @@
-function getChain (text){
+function getChain(text){
+	
+	text = text.toLowerCase().replace(/\s+/g, ' ').replace(/([^a-z0-9 ])/g, ''); // removes all nonalphanumeric characters
 
-	var words = new Array();
-	var counters = new Array();
+	let words = new Array(), // makes empty arrays
+	    counters = new Array();
+	
+	let lastIndex = -1; // index of last word that was processed by loop
 
-	var lastIndex = -1;
+	text.split(" ").forEach(word => { // loops through words in text
 
-	for (word in text.split("")) {
+		let currIndex = words.indexOf(word); // gets index of current word
 
-		var index = words.indexOf(word);
+		if (currIndex == -1) { // if word hasn't been registered
 
-		if (index == -1) {
+			for (i in counters) // expand all existing nodes by 1
+				counters[i].push(0);
 
-			for (node in counters)
-				node.push(0);
+			currIndex = words.length; // recognize new entry
 
-			index = words.length;
-
-			counters.add(new Array(words.length + 1).fill(0));
-
-			words.push(word);
+			words.push(word); // add word to word list
+			
+			counters.push(new Array(words.length).fill(0)); // add new node to counters
 
 		}
 
-		if (lastIndex != -1) counters[lastIndex][index] = counters[lastIndex][index] + 1;
+		if (lastIndex != -1) counters[lastIndex][currIndex] = // updates last word's counter
+		                     counters[lastIndex][currIndex] + 1;
 
-		lastIndex = index;
+		lastIndex = currIndex; // curr word will be previous word for next word
 
+	});
+	
+	console.log(counters);
+
+	let probabilities = new Array(); // time to calculate probabilities instead of counters
+
+	for (let i in counters) {
+
+		let sum = counters[i].reduce((total, x) => total + x); // sum
+
+		if (sum == 0) probabilities[i] = new Array(counters[i].length).fill(0); // if sum is 0, fill row with 0s to prevent division by 0
+		
+		else { // else fill row with calculated probabilities
+			probabilities[i] = new Array();
+			for (let j in counters[i]) probabilities[i][j] = counters[i][j]/sum;
+		}
+		
 	}
 
-	var probabilities = new Array();
-
-	for (int x=0; x < counter.length; x++) {
-
-		var node = new Array();
-
-		var sum = counters[x].reduce();
-
-		if (sum != 0)
-			for (int i=0; i < counters[x].length; i++) probabilities[x][i] = counters[x][i]/sum;
-		else
-			probabilities[x] = new Array(counters[x].length).fill(0);
-
-	}
-
-	return {
-		words: words;
-		probabilities: probabilities;
+	return { // return everything
+		words: words,
+		probabilities: probabilities
 	}
 
 }
 
-print(getChain("hello my dudes"));
+function generateText(source, length, firstWord) {
+	
+	let chain = getChain(source);
+	
+	let words = chain.words;
+	let probabilities = chain.probabilities;
+	
+	console.log(words);
+	
+	let text = "";
+	
+	let currIndex = words.indexOf(firstWord);
+	
+	for (let i=0; i < length; i++) {
+		
+		text += words[currIndex];
+		text += " ";
+		
+		currIndex = getWeightedIndex(probabilities[currIndex]);
+		
+		console.log(i);
+		
+	}
+	
+	return text;
+	
+}
+
+function getWeightedIndex (node) {
+	
+	let rand = Math.random();
+	
+	let sum = 0;
+	
+	for (let i in node) {
+		
+		sum += node[i];
+		if (sum >= rand) return i;
+		
+	}
+	
+	return 0;
+	
+}
+
+console.log(generateText("hello my dudes how are you today I am doing well thanks for action! the sun is shining and I am very happy", 12, "the"));
