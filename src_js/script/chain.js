@@ -99,5 +99,3 @@ function getWeightedIndex (node) {
 	return 0;
 	
 }
-
-console.log(generateText("hello my dudes how are you today I am doing well thanks for action! the sun is shining and I am very happy", 12, "the"));
