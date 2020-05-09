@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>chain</title>
-    <script src="script/chain.js"></script>
+    <script src="chain.js"></script>
 	<style>
-	
+
 	body { padding: 1em }
 	h1 { margin: 0 }
 
@@ -15,16 +15,16 @@
 		margin: 1em auto 1em auto;
 		width: 500px;
 	}
-	
+
 	#geninfo table { margin: auto }
 	#geninfo td { padding: 0.2em }
 	#geninfo td:first-child { text-align: right; }
 
 	textarea { width: 100% }
-	
+
 	#data { height: 25em }
 	#output { height: 10em }
-	
+
 	</style>
 </head>
 <body>
@@ -43,7 +43,7 @@
 <script>
 	let url = new URL(window.location.href);
 	let srcurl = url.searchParams.get("source");
-	
+
 	if (srcurl) fetch(srcurl).then((response) => response.text()).then(text => document.getElementById("data").value = text);
 
 	function gen() {
