@@ -1,2 +1,15 @@
-# BChain
-play with demo in browser [here](http://hywn.github.io/BChain)
+- # BChain
+	- use Markov chains to generate sentences
+	- browser version [here](http://hywn.github.io/BChain)
+- # background
+	- ## inception
+		- was project for AP computer science
+		- made in Java
+			- made tiny JavaScript version to demo in browser
+	- ## 6 months later
+		- oh nice this looks good on my resume "Markov chains" lol
+			- sounds complicated like "data science" or "machine learning" or something
+	- ## 1 year later
+		- I want to clean up my repositories, and this repository is kind of a mess
+		- I could remove it, but then my resume shrinks oh no!!
+		- so I must rewrite it

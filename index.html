@@ -1,56 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>chain</title>
-    <script src="chain.js"></script>
-	<style>
+<script src="chain.js"></script>
 
-	body { padding: 1em }
-	h1 { margin: 0 }
+<title>chain</title>
 
-	.box {
-		background-color: #eee;
-		padding: 1em;
-		margin: 1em auto 1em auto;
-		width: 500px;
-	}
 
-	#geninfo table { margin: auto }
-	#geninfo td { padding: 0.2em }
-	#geninfo td:first-child { text-align: right; }
-
-	textarea { width: 100% }
-
-	#data { height: 25em }
-	#output { height: 10em }
-
-	</style>
-</head>
-<body>
-
-<div class="box"><textarea placeholder="paste some text here" id="data"></textarea></div>
+<div class="box">
+	<textarea placeholder="paste some text here" id="data"></textarea>
+</div>
 <div class="box" id="geninfo">
 	<table>
-		<tr><td>text length</td><td><input id="len" type="text" value="12" placeholder="text length" /></td></tr>
-		<tr><td>first word of text</td><td><input id="fword" type="text" value="the" placeholder="first word of text" /></td></tr>
-		<tr><td></td><td><input type="button" value="generate" onclick="gen();" /></td></tr>
+		<tr>
+			<td>text length</td>
+			<td><input id="len" type="text" value="12" placeholder="text length" /></td>
+		</tr>
+		<tr>
+			<td>first word of text</td>
+			<td><input id="fword" type="text" value="the" placeholder="first word of text" /></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><input type="button" value="generate" onclick="gen();" /></td>
+		</tr>
 	</table>
 </div>
-<div class="box"><textarea placeholder="chain-generated text will appear here" id="output"></textarea></div>
-</body>
+<div class="box">
+	<textarea placeholder="chain-generated text will appear here" id="output"></textarea>
+</div>
+
+
+<style>
+body { padding: 1em }
+h1 { margin: 0 }
+
+.box {
+	background-color: #eee;
+	padding: 1em;
+	margin: 1em auto 1em auto;
+	width: 500px;
+}
+
+#geninfo table { margin: auto }
+#geninfo td { padding: 0.2em }
+#geninfo td:first-child { text-align: right; }
+
+textarea { width: 100% }
+
+#data { height: 25em }
+#output { height: 10em }
+</style>
+
 
 <script>
-	let url = new URL(window.location.href);
-	let srcurl = url.searchParams.get("source");
+const DATA   = document.querySelector('#data')
+const OUTPUT = document.querySelector('#output')
+const LEN    = document.querySelector('#len')
+const FWORD  = document.querySelector('#fword')
 
-	if (srcurl) fetch(srcurl).then((response) => response.text()).then(text => document.getElementById("data").value = text);
+function gen()
+{
+	OUTPUT.value = generateText(DATA.value, Number(LEN.value), FWORD.value)
+}
 
-	function gen() {
-		document.getElementById("output").value = generateText(document.getElementById("data").value,
-		                                                       parseInt(document.getElementById("len").value),
-		                                                       document.getElementById("fword").value);
-	}
+const src_url = new URLSearchParams(window.location.search).get('src')
+
+if (src_url)
+	fetch(src_url)
+		.then(r => r.text())
+		.then(text => DATA.value = text);
 </script>
-
-</html>
