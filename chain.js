@@ -2,7 +2,7 @@ function getChain(text)
 {
 	const text_words = text
 		.toLowerCase()
-		.replace(/([^\w ])/g, '') // removes nonalphanumeric (or space) characters
+		.replace(/([^\w\s])/g, '') // removes nonalphanumeric (or whitespace) characters
 		.match(/\w+/g)            // gets all words
 
 	const words    = [] // used for mapping word to word index
